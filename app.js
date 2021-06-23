@@ -59,8 +59,21 @@ document.addEventListener('DOMContentLoaded', () => {
     ]
 
 
+    const allTetrominoes = [lTetromino, zTetromino, tTetromino, qTetromino, iTetromino];
 
+    let currentPosition = 4;
+    let current = allTetrominoes[0][0];
 
+    console.log(allTetrominoes[0][0]);
+
+    // draw first rotatino of lTetromino
+    function draw(){
+        current.forEach(element => {
+            squares[currentPosition + element].classList.add('tetromino')
+        });
+    }
+
+    draw();
 
 
 
