@@ -64,9 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentPosition = 4;
     let currentRotation = 0;
 
-    let random = Math.floor(Math.random() * allTetrominoes.length);
-
-    let current = allTetrominoes[random][currentRotation];
+    let current = allTetrominoes[getRandomTetrominoIndex()][currentRotation];
 
 
     // draw a tetromino
@@ -76,14 +74,39 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    draw();
-
     // undraw a tetromino
     function undraw(){
         current.forEach(element => {
             squares[currentPosition + element].classList.remove('tetromino');
         });
     }
+
+    // move the tetromino
+    function moveDown(){
+        undraw();
+        currentPosition += width;
+        draw();
+        stopTetromino();
+    }
+
+    function getRandomTetrominoIndex(){
+        return Math.floor(Math.random() * allTetrominoes.length);
+    }
+
+    // stop the tetromino if there is no space left
+    function stopTetromino(){
+        if(current.some(element => squares[currentPosition + element + width].classList.contains('taken'))){
+            current.forEach(element => squares[currentPosition + element].classList.add('taken'));
+
+            // if Tetromino stopped create a new one
+            current = allTetrominoes[getRandomTetrominoIndex()][currentRotation];
+            currentPosition = 4;
+            draw();
+        }
+    }
+
+
+    let timerId = setInterval(moveDown, 200);
 
 
 
