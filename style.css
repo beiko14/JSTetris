@@ -12,6 +12,8 @@
     border-color: black;
     border-style: solid;
     border-width: 1px;
-    background-color: red;
 }
 
+.tetromino{
+    background-color: blue;
+}
