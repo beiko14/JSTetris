@@ -192,6 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
             currentPosition = 4;
             draw();
             showNextTetromino();
+            addScore(); //check if Score increased
         }
     }
 
@@ -213,7 +214,29 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 
 
+    let score = 0;
 
+    function addScore(){
+        for (let i = 0; i < 199; i += width) {
+            const row = [i, i+1, i+2, i+3, i+4, i+5, i+6, i+7, i+8, i+9]
+
+            //if every div in a row is taken remove this row and push the other taken rows down
+            if(row.every(element => squares[element].classList.contains("taken"))){
+                score += 10;
+                scoreDisplay.innerHTML = score;
+                row.forEach(element => {
+                    squares[element].classList.remove("taken");
+                    squares[element].classList.remove("tetromino");
+                });
+                const squaresRemoved = squares.splice(i, width);
+                
+                // add the removed squares at the top and push the other taken rows down
+                squares = squaresRemoved.concat(squares);
+                squares.forEach(element => grid.appendChild(element));
+            }
+            
+        }
+    }
 
 
 
