@@ -11,6 +11,34 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const width = 10;
 
+
+
+    const miniGrid = document.querySelector(".mini-grid");
+    const miniGridSquares = document.querySelectorAll(".mini-grid div");
+    const miniGridWidth = 4;
+    let miniGridIndex = 0;
+    let nextRandom = 0;
+
+    const nextTetromino = [
+        [miniGridWidth, miniGridWidth + 1, miniGridWidth + 2, miniGridWidth * 2 + 2], // lTetromino
+        [0, miniGridWidth, miniGridWidth + 1, miniGridWidth * 2 + 1], // Z
+        [0, miniGridWidth, miniGridWidth * 2, miniGridWidth + 1], // T
+        [0, miniGridWidth, 1, miniGridWidth + 1], // Q
+        [0, 1, 2, 3] // i
+    ]
+
+    function showNextTetromino(){
+        miniGridSquares.forEach(element => {
+            element.classList.remove("tetromino");
+        })
+        nextTetromino[nextRandom].forEach(element => {
+            miniGridSquares[miniGridIndex + element].classList.add("tetromino");
+        })
+    }
+
+
+
+
     console.log(squares);
 
 
@@ -65,6 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentRotation = 0;
 
     var randomTetromino = getRandomTetrominoIndex();
+
     let current = allTetrominoes[randomTetromino][currentRotation];
 
     // keyCodes
@@ -145,8 +174,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function getRandomTetrominoIndex(){
-        randomTetromino = Math.floor(Math.random() * allTetrominoes.length);
-        return randomTetromino;
+        //randomTetromino = Math.floor(Math.random() * allTetrominoes.length);
+        return Math.floor(Math.random() * allTetrominoes.length);
     }
 
     // stop the tetromino if there is no space left
@@ -155,9 +184,12 @@ document.addEventListener('DOMContentLoaded', () => {
             current.forEach(element => squares[currentPosition + element].classList.add('taken'));
 
             // if Tetromino stopped create a new one
-            current = allTetrominoes[getRandomTetrominoIndex()][currentRotation];
+            randomTetromino = nextRandom;
+            nextRandom = getRandomTetrominoIndex();
+            current = allTetrominoes[randomTetromino][currentRotation];
             currentPosition = 4;
             draw();
+            showNextTetromino();
         }
     }
 

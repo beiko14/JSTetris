@@ -22,3 +22,24 @@
     /* background-color: red; */
     /* visibility: hidden; */
 }
+
+
+.container{
+    display: flex;
+    flex-direction: row;
+}
+
+.mini-grid{
+    height: 80px;
+    width: 80px;
+    background-color: yellow;
+    display: flex;
+    flex-wrap: wrap;
+    margin-left:20px;
+}
+
+.mini-grid div{
+    border: black solid 1px;
+    height: 18px;
+    width: 18px;
+}
