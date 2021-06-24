@@ -64,7 +64,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentPosition = 4;
     let currentRotation = 0;
 
-    let current = allTetrominoes[getRandomTetrominoIndex()][currentRotation];
+    let randomTetromino = getRandomTetrominoIndex();
+    let current = allTetrominoes[randomTetromino][currentRotation];
 
     // keyCodes
     function control(e){
@@ -72,6 +73,10 @@ document.addEventListener('DOMContentLoaded', () => {
             moveLeft();
         } else if(e.keyCode === 39){
             moveRight();
+        } else if(e.keyCode === 38){
+            rotate();
+        } else if(e.keyCode === 40){
+            moveDown();
         }
     }
 
@@ -128,6 +133,17 @@ document.addEventListener('DOMContentLoaded', () => {
         draw();
     }
 
+    function rotate(){
+        undraw();
+        if(currentRotation < 3){
+            currentRotation++;
+        } else{
+            currentRotation = 0;
+        }
+        current = allTetrominoes[randomTetromino][currentRotation];
+        draw();
+    }
+
     function getRandomTetrominoIndex(){
         return Math.floor(Math.random() * allTetrominoes.length);
     }
@@ -138,14 +154,14 @@ document.addEventListener('DOMContentLoaded', () => {
             current.forEach(element => squares[currentPosition + element].classList.add('taken'));
 
             // if Tetromino stopped create a new one
-            current = allTetrominoes[getRandomTetrominoIndex()][currentRotation];
+            current = allTetrominoes[randomTetromino][currentRotation];
             currentPosition = 4;
             draw();
         }
     }
 
 
-    let timerId = setInterval(moveDown, 200);
+    let timerId = setInterval(moveDown, 1000);
 
 
 
