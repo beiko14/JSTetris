@@ -193,6 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
             draw();
             showNextTetromino();
             addScore(); //check if Score increased
+            gameOver();
         }
     }
 
@@ -238,6 +239,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function gameOver(){
+        // if the new Tetromino is in a taken square the game will be over
+        if(current.some(element => squares[currentPosition + element].classList.contains("taken"))){
+            scoreDisplay.innerHTML = score + " end";
+            clearInterval(timerId);
+        }
+    }
 
 
 
