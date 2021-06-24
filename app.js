@@ -66,6 +66,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let current = allTetrominoes[getRandomTetrominoIndex()][currentRotation];
 
+    // keyCodes
+    function control(e){
+        if(e.keyCode === 37){
+            moveLeft();
+        } else if(e.keyCode === 39){
+            moveRight();
+        }
+    }
+
+    document.addEventListener("keyup", control);
+
 
     // draw a tetromino
     function draw(){
@@ -95,9 +106,23 @@ document.addEventListener('DOMContentLoaded', () => {
         let isAtLeftEdge = current.some(element => (currentPosition + element) % width === 0)
         if(!isAtLeftEdge){
 
-            //if there is another tetromino it's not valid to move left
-            if(current.some(element => squares[currentPosition + element].classList.contains('taken'))){
+            // & if there is NOT another tetromino to the left, move it left
+            if(!current.some(element => squares[currentPosition + element].classList.contains('taken'))){
                 currentPosition -= 1;
+            }
+        }
+        draw();
+    }
+
+    // move right, if valid option
+    function moveRight(){
+        undraw();
+        let isAtRightEdge = current.some(element => (currentPosition + element + 1) % width === 0)
+        if(!isAtRightEdge){
+
+            // & if there is NOT another tetromino to the right, move it right
+            if(!current.some(element => squares[currentPosition + element].classList.contains('taken'))){
+                currentPosition += 1;
             }
         }
         draw();
