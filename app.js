@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentPosition = 4;
     let currentRotation = 0;
 
-    let randomTetromino = getRandomTetrominoIndex();
+    var randomTetromino = getRandomTetrominoIndex();
     let current = allTetrominoes[randomTetromino][currentRotation];
 
     // keyCodes
@@ -145,7 +145,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function getRandomTetrominoIndex(){
-        return Math.floor(Math.random() * allTetrominoes.length);
+        randomTetromino = Math.floor(Math.random() * allTetrominoes.length);
+        return randomTetromino;
     }
 
     // stop the tetromino if there is no space left
@@ -154,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
             current.forEach(element => squares[currentPosition + element].classList.add('taken'));
 
             // if Tetromino stopped create a new one
-            current = allTetrominoes[randomTetromino][currentRotation];
+            current = allTetrominoes[getRandomTetrominoIndex()][currentRotation];
             currentPosition = 4;
             draw();
         }
