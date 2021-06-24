@@ -89,6 +89,20 @@ document.addEventListener('DOMContentLoaded', () => {
         stopTetromino();
     }
 
+    // move left, if valid option
+    function moveLeft(){
+        undraw();
+        let isAtLeftEdge = current.some(element => (currentPosition + element) % width === 0)
+        if(!isAtLeftEdge){
+
+            //if there is another tetromino it's not valid to move left
+            if(current.some(element => squares[currentPosition + element].classList.contains('taken'))){
+                currentPosition -= 1;
+            }
+        }
+        draw();
+    }
+
     function getRandomTetrominoIndex(){
         return Math.floor(Math.random() * allTetrominoes.length);
     }
@@ -107,7 +121,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     let timerId = setInterval(moveDown, 200);
-
 
 
 
