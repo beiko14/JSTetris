@@ -29,9 +29,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function showNextTetromino(){
         miniGridSquares.forEach(element => {
+            //remove all tetrominoes from the div, so there is space to show the next one
             element.classList.remove("tetromino");
         })
         nextTetromino[nextRandom].forEach(element => {
+            //show the next Tetromino at the mini-grid
             miniGridSquares[miniGridIndex + element].classList.add("tetromino");
         })
     }
@@ -194,7 +196,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    let timerId = setInterval(moveDown, 1000);
+    let timerId = 0;
+
+    startBtn.addEventListener("click", function(){
+        if(timerId > 0){
+            console.log(timerId);
+            clearInterval(timerId);
+            timerId = 0;
+        } else{
+            console.log(timerId);
+            draw();
+            timerId = setInterval(moveDown, 1000);
+            nextRandom = getRandomTetrominoIndex();
+            showNextTetromino();
+        }
+    })
+
+
 
 
 
