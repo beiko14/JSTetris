@@ -11,6 +11,14 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const width = 10;
 
+    const colors = [
+        "orange",
+        "blue",
+        "green",
+        "red",
+        "brown"
+    ]
+
 
 
     const miniGrid = document.querySelector(".mini-grid");
@@ -31,10 +39,12 @@ document.addEventListener('DOMContentLoaded', () => {
         miniGridSquares.forEach(element => {
             //remove all tetrominoes from the div, so there is space to show the next one
             element.classList.remove("tetromino");
+            element.style.backgroundColor = "";
         })
         nextTetromino[nextRandom].forEach(element => {
             //show the next Tetromino at the mini-grid
             miniGridSquares[miniGridIndex + element].classList.add("tetromino");
+            miniGridSquares[miniGridIndex + element].style.backgroundColor = colors[nextRandom];
         })
     }
 
@@ -118,6 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function draw(){
         current.forEach(element => {
             squares[currentPosition + element].classList.add('tetromino');
+            squares[currentPosition + element].style.backgroundColor = colors[randomTetromino];
         });
     }
 
@@ -125,6 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function undraw(){
         current.forEach(element => {
             squares[currentPosition + element].classList.remove('tetromino');
+            squares[currentPosition + element].style.backgroundColor = "";
         });
     }
 
@@ -228,6 +240,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 row.forEach(element => {
                     squares[element].classList.remove("taken");
                     squares[element].classList.remove("tetromino");
+                    squares[element].style.backgroundColor = "";
                 });
                 const squaresRemoved = squares.splice(i, width);
                 
