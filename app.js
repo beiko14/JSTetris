@@ -151,28 +151,41 @@ document.addEventListener('DOMContentLoaded', () => {
     // move left, if valid option
     function moveLeft(){
         undraw();
+
+        // Tetrominoes are glitching into each other
+        
+        // let isAtLeftEdge = current.some(element => (currentPosition + element + 1) % width === 0)
+        // if(!isAtLeftEdge){
+        //     if(!current.some(element => squares[currentPosition + element].classList.contains('taken'))){
+        //         currentPosition -= 1;
+        //     }
+        // }
+        
         let isAtLeftEdge = current.some(element => (currentPosition + element) % width === 0)
         if(!isAtLeftEdge){
-
-            // & if there is NOT another tetromino to the left, move it left
-            if(!current.some(element => squares[currentPosition + element].classList.contains('taken'))){
-                currentPosition -= 1;
-            }
+            currentPosition -= 1;
         }
+        // if to the left is a taken field go one square to the right, so the Tetromino didn't move
+        if(current.some(element => squares[currentPosition + element].classList.contains('taken'))){
+            currentPosition += 1;
+        }
+        
         draw();
     }
 
     // move right, if valid option
     function moveRight(){
         undraw();
-        let isAtRightEdge = current.some(element => (currentPosition + element + 1) % width === 0)
+        
+        let isAtRightEdge = current.some(element => (currentPosition + element +1) % width === 0)
         if(!isAtRightEdge){
-
-            // & if there is NOT another tetromino to the right, move it right
-            if(!current.some(element => squares[currentPosition + element].classList.contains('taken'))){
-                currentPosition += 1;
-            }
+            currentPosition += 1;
         }
+        // if to the right is a taken field go one square to the left, so the Tetromino didn't move
+        if(current.some(element => squares[currentPosition + element].classList.contains('taken'))){
+            currentPosition -= 1;
+        }
+
         draw();
     }
 
