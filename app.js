@@ -1,8 +1,20 @@
 document.addEventListener('DOMContentLoaded', () => {
     const grid = document.querySelector('.grid');
 
+    // create 200 game field divs and 10 bottom divs
+    for(let i = 0; i < 210; i++){
+        if(i >= 200){
+            const squares = document.createElement("div");
+            squares.classList.add("taken");
+            grid.appendChild(squares);
+            continue;
+        }
+        const squares = document.createElement("div");
+        grid.appendChild(squares);
+    }
+
     // Array.from collects all divs and puts them in an Array
-    let squares = Array.from(document.querySelectorAll('.grid div'));
+    squares = Array.from(document.querySelectorAll('.grid div'));
 
     const scoreDisplay = document.querySelector('#score');
 
@@ -22,7 +34,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     const miniGrid = document.querySelector(".mini-grid");
-    const miniGridSquares = document.querySelectorAll(".mini-grid div");
+
+    for(let i = 0; i < 16; i++){
+        const miniGridSquares = document.createElement("div");
+        miniGrid.appendChild(miniGridSquares);
+    }
+
+    miniGridSquares = document.querySelectorAll(".mini-grid div");
     const miniGridWidth = 4;
     let miniGridIndex = 0;
     let nextRandom = 0;
